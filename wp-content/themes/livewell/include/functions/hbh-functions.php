@@ -198,8 +198,6 @@ function hbh_get_category_by_slug($slug){
     }
 
     return $term;
-<<<<<<< HEAD
-=======
 }
 
 function is_wp_home(){
@@ -264,5 +262,4 @@ function header_menu() : void {
         $html_nav .= '</nav>';
     }
     echo $html_nav;
->>>>>>> 075e3a5... Body Project Commit
 }
