@@ -1,0 +1,148 @@
+.post {
+    .title {
+        font-size: 30px;
+        color: $color-black;
+        font-weight: 800;
+        font-family: $primary-font-black;
+        margin-top: 0;
+    }
+    .author_recette, .date_recette, .date_modified_recette {
+        font-size: 15px;
+        color: $color-black;
+        font-weight: 400;
+        font-family: $primary-font-regular;
+    }
+    .author_recette{
+        text-transform: capitalize;
+    }
+    .excerpt {
+        font-size: 20px;
+        color: $color-black;
+        font-weight: 700;
+        font-family: $primary-font-bold;
+        margin-bottom: 22px;
+        margin-top: 5px;
+    }
+    .article-content {
+        font-size: 16px;
+        color: $color-black;
+        font-family: $primary-font-regular;
+        h2,
+        h3 {
+            font-size: 25px;
+            line-height: 23px;
+            font-family: $primary-font-bold;
+            font-weight: 800;
+        }
+        a {
+            color: $primary-color;
+        }
+    }
+    .image_a_lune img {
+        border-radius: 15px;
+    }
+}
+.single {
+    #content {
+        img {
+            max-width: 100%;
+        }
+        iframe:not([id^="google_ads_iframe"]){
+            width: 100%;
+        }
+        .content-iframe{
+            iframe{
+                min-height: 450px;
+                max-width: 100%;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+    .playlist_ {
+        background-color: $color-black; 
+        margin: 10px auto;
+        .jwplayer {
+            max-width: 100%;
+            margin:0 0 20px;
+            border-radius: 0;
+            .jw-background-color{
+                background-color:$primary-color ;
+                .jw-button-color{
+                    color: $color-black;
+                }
+            }
+            &:hover{
+                .jw-background-color{
+                    background-color:$primary-color ;
+                    .jw-button-color{
+                        color: $color-black;
+                    }
+                }
+                
+            }
+        }
+        .title_video {
+            margin: 10px 0;
+            a {
+                color:$color-black;
+                font-size: 15px;
+                line-height: 17px;
+                font-weight: 600;
+                font-family: $primary-font-semibold;
+            }
+        }
+        //.playlist_
+        &thumbnails {
+            .slick {
+                //.slick-prev
+                &-prev,
+                //.slick-next
+                &-next {
+                    position: absolute;
+                    top: 50px;
+                    z-index: 1;
+                    width: 30px;
+                    border: none;
+                    height: 30px;
+                    font-size: 16px;
+                    overflow: hidden;
+                    padding: 0px 10px;
+                    background-color: $primary-color;
+                    font-family: $fontawesome-solid;
+                    color: $color-black ;
+                }
+                //.slick-prev
+                &-prev {
+                    left:5px;
+                    &:before {
+                        margin-right: 20px;
+                        content: "\f104";
+                    }
+                }
+                //.slick-next
+                &-next {
+                    right:5px;
+                    &:before {
+                        margin-right: 20px;
+                        content: "\f105";
+                    }
+                }
+                //.slick-slide
+                &-slide {
+                    padding: 0 5px;
+                    .img_post_video {
+                        max-height: 120px;
+                    }
+                }
+                //.slick-list
+                &-list {
+                    margin: 0 30px;
+                }
+            }
+        }
+    }
+
+
+}

@@ -1,0 +1,44 @@
+.pagination {
+	display: block;
+	text-align: center;
+	margin-top: 50px;
+	.page-numbers {
+		font-size: 18px;
+		display: inline-block;
+        color: $color-black;
+        font-family: $primary-font-bold;
+		overflow: hidden;
+		position:relative;
+		width: 30px;
+		height: 30px;
+		padding-top: 5px;
+		&.current {
+			font-weight: bold;
+			background-color: $primary-color;
+			color: #ffffff;
+			text-decoration: none;
+			@include border-radius(10px);
+		}
+	}
+	.prev, .next {
+        font-family: $fontawesome-solid;
+        color: $primary-color;
+		text-indent : 300px;
+	}
+	.next {
+		&:after {
+			content: '\f054';
+			position:absolute;
+			right: 10px;
+			top: 4px;
+		}
+	}
+	.prev {
+		&:after {
+			content: '\f053';
+			position:absolute;
+			right: 10px;
+			top: 4px;
+		}
+	}
+}

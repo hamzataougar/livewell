@@ -1,0 +1,70 @@
+.large-diapo {
+    margin-top: 10px;
+	.block_diapo {
+        .pinit-here {
+            @include border-radius(20px);
+        }
+        .list_thumbs {
+            display: none;
+        }
+    }
+    .masc_legende {
+        .lists_legend {
+            padding: 0;
+            li {
+                display: none;
+            }
+            .active {
+                display: block;
+                margin-top: 10px;
+            }
+            .slide_nb {
+                float: left;
+                background-color: $diapo_legend_bg_color;
+                @include border-radius(10px);
+                font-size: 16px;
+                color: $color-white;
+                font-weight: bold;
+                font-family: $primary-font-bold;
+                padding: 15px;
+                margin-right: 10px;
+                margin-bottom: 20px;
+            }
+            .legend_title {
+                font-size: 20px;
+                line-height: 17px;
+                color: $color-black;
+                font-weight: 700;
+                font-family: $primary-font-bold;
+                padding-top: 10px;
+            }
+            .legend_img_excerpt {
+                font-size: 14px;
+                line-height: 17px;
+                color: $color-black;
+                font-family: $primary-font-regular;
+            }
+        }
+    }
+
+    .visu_block {
+        figure {
+            text-align: center;
+        }
+    }
+}
+.scroll_arrows {
+    clear: both;
+    .btn-navs {
+        background-color: #efc313;
+        color: $color-white;
+        font-size: 14px;
+        font-weight: 700;
+        font-family: $primary-font-bold;
+        text-align: center;
+        padding: 10px;
+        @include border-radius(10px);
+        cursor: pointer;
+        text-transform: uppercase;
+    }
+}

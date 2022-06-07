@@ -1,0 +1,103 @@
+.page-name-contactez-nous {
+	.breadcrumb {
+		text-transform: uppercase;
+		position: relative;
+		top: 24px;
+		margin-top: 20px;
+		overflow: hidden;
+	}
+	.title_page {
+		text-transform: none;
+		margin-bottom: 4px;
+	}
+	.page {
+		.thecontent { 
+			p {
+				font-family: $primary-font-lightitalic;
+			}
+		}
+	}
+}
+.contactez-nous {
+	// .contactez-nous-txt
+	&-txt {
+		font-style: italic;
+		margin-bottom: 30px;
+	}
+	input,
+	select,
+	textarea {
+		@include border-radius(30px);
+		border-color: #ececec;
+		background: $input-page-grey;
+		color: $color-black;
+		height: 40px;
+		padding: 10px 20px;
+	}
+	.ninja-forms-required-items {
+		display: none;
+	}
+	.text-wrap,
+	.list-dropdown-wrap,
+	.textarea-wrap,
+	.btn-envoyer-wrap,
+	.nom-wrap,
+	.prenom-wrap  {
+		width: 100%;
+		float: left;
+		label {
+			color: $gray-color;
+			font-family: $primary-font-semibold;
+			font-size: 15px;
+			width: 100%;
+			text-align: left;
+			margin-bottom: 10px;
+			text-transform: uppercase;
+		}
+		div.pull-left {
+			width: 100%;
+		}
+	}
+	.textarea-wrap {
+		textarea {
+			height: 160px;
+		}
+	}
+	.btn-envoyer-wrap {
+		margin-bottom: 75px;
+		div.pull-right {
+			width: 100%;
+		}
+		input {
+			background-color: $primary-color;
+			border: 1px solid $color-white;
+			color: $color-white;
+			width: 100%;
+			padding: 10px;
+			&:hover {
+				background-color: $color-white;
+				border: 1px solid $primary-color;
+				color: $primary-color;
+			}
+		}
+	}
+	.choix_du_pole {
+		appearance: none;
+		// .choix_du_pole-wrap
+		&-wrap div{
+			position: relative;
+			&:after {
+				position: absolute;
+				content: "\f078";
+				font-family: $fontawesome-solid;
+				right: 30px;
+				top: 12px;
+				color: $primary-color;
+			}
+		}
+	}
+	.form-control:focus {
+		border-color: $bread_crumbs_color;
+		box-shadow: unset;
+	}
+}

@@ -1,10 +1,8 @@
 <?php
-
-defined('USE_DETECT_MOBILE') or define('USE_DETECT_MOBILE' , true);
 if( isset($_SERVER['IS_MOBILE']) ) {
     if ( $_SERVER['IS_MOBILE']=='1' || isset($_GET['mobile']) )
     	define('MOBILE_MODE' , true);
-
+    
 } else {
     $useragent=$_SERVER['HTTP_USER_AGENT'];
     if( isset($_GET['mobile']) || 

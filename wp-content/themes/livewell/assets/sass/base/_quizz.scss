@@ -1,0 +1,311 @@
+#quizz {
+	margin-top: 20px;
+	.test_progress {
+		display: flex;
+		@include justify-content(space-between);
+		.steps {
+			position: relative;
+			span {
+				position: absolute;
+				width: 15px;
+				height: 15px;
+				border-radius: 15px;
+				display: inline-block;
+				background-color: #eaeaea;
+				text-indent: 20px;
+				overflow: hidden;
+				z-index: 1;
+			}
+			&:after {
+				content: " ";
+				position: absolute;
+				top: 8px;
+				left: 0px;
+				height: 2px;
+				width: 100%;
+				display: block;
+				z-index: 0;
+				background: #eaeaea;
+			}
+		}
+		.visited, .current {
+			span {
+				width: 15px;
+				height: 15px;
+				border-radius: 15px;
+				display: inline-block;
+				background-color: $share_icon_bg_color;
+			}
+		}
+		.visited {
+			&:after {
+				z-index: 1;
+				background: #ff7b4a;
+			}
+		}
+	}
+	.question {
+		// .question-excerpt
+		&-excerpt h2 {
+			font-size: 20px;
+			line-height: 22px;
+			color: $color-black;
+			font-weight: 700;
+			font-family: $primary-font-bold;
+			text-align: center;
+			margin-top: 50px;
+			padding: 0 15px;
+			margin-bottom: 5;
+		}
+		// .question-title
+		&-title {
+			font-size: 12px;
+			line-height: 22px;
+			color: $light-gray-color;
+			font-weight: 600;
+			font-family: $primary-font-regular;
+			text-align: center;
+			text-transform: none;
+		}
+		// .question-responses-list
+		&-responses-list {
+			margin: 25px 0px 10px;
+			list-style: none;
+			padding: 0px;
+			display: flex;
+			@include flex-wrap(wrap);
+			.choice {
+				.radio {
+					border: 2px solid $share_icon_bg_color;
+				}
+				label {
+					padding-top: 14px;
+					padding-bottom: 14px;
+				}
+			}
+			// .question-responses-list-item
+			&-item {
+				position: relative;
+				margin-bottom: 8px;
+				padding-right: 8px;
+				&.wrong {
+					animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+					transform: translate3d(0, 0, 0);
+					backface-visibility: hidden;
+					perspective: 1000px;
+					.radio {
+						border: 2px solid red;
+					}
+					label {
+						padding-top: 14px;
+						padding-bottom: 14px;
+					}
+				}
+				&.right {
+					.radio {
+						border: 2px solid green;
+					}
+					label {
+						padding-top: 14px;
+						padding-bottom: 14px;
+					}
+				}
+				label {
+					font-size: 16px;
+					line-height: 22px;
+					color: $color-black;
+					font-weight: 400;
+					font-family: $primary-font-regular;
+					margin: 0px;
+					height: 100%;
+					padding: 15px 5px 15px 35px;
+					border: 1px solid #e1e1e1;
+				}
+				input {
+					display: none;
+				}
+				@each $property, $value in $alpha {
+					&.item-#{$property}:before {
+						$i: index(($alpha), ($property $value));
+						content: $value;
+					}
+				}
+				&:before {
+					width: 45px;
+					height: 100%;
+					background: $share_icon_bg_color;
+					font-weight: 600;
+					font-size: 20px;
+					font-family: $primary-font-bold;
+					color: $color-white;
+					display: flex;
+					@include align-items(center);
+					@include justify-content(center);
+					position: absolute;
+					z-index: 1;
+					left: 0px;
+					top: 0px;
+				}
+				&.has-image {
+					margin-bottom: 50px;
+					&:before {
+						left: 15px;
+						bottom: -35px;
+						width: calc(100% - 30px);
+						height: 45px;
+						top: unset;
+						z-index: 1;
+					}
+					label {
+						text-align: center;
+						padding: 10px;
+					}
+				}
+				&:active {
+  					@include translate(2px,2px);
+				}
+			}	
+		}
+		.btn-arrow-link {
+			background: $share_icon_bg_color;
+			color: $color-white;
+			border: 1px solid $color-white;
+			border-radius: 5px;
+			padding: 5px 20px; 
+			margin-top: 20px;
+			&:focus-visible {
+				border: 1px solid $light-gray-color;
+				outline: none;
+			}
+			&:hover {
+				background: $color-white;
+				color: $share_icon_bg_color;
+				border: 1px solid $share_icon_bg_color;
+			}
+		}
+	}
+	.profile {
+		form {
+			text-align: center;
+			margin-top: 10px;
+		}
+		.btn-arrow-link {
+			background: $share_icon_bg_color;
+			color: $color-white;
+			border: 1px solid $color-white;
+			border-radius: 5px;
+			padding: 5px 20px; 
+			&:focus-visible {
+				border: 1px solid $light-gray-color;
+				outline: none;
+			}
+			&:hover {
+				background: $color-white;
+				color: $share_icon_bg_color;
+				border: 1px solid $share_icon_bg_color;
+			}
+		}
+		.image {
+			display: flex;
+			@include justify-content(center);
+			img {
+				width: 100px;
+				height: 100px;
+				@include border-radius(50%);
+			}
+		}
+		.title {
+			font-size: 12px;
+			line-height: 22px;
+			color: $light-gray-color;
+			font-weight: 600;
+			font-family: $primary-font-regular;
+			text-align: center;
+			//.title-question
+			&-question {
+				font-size: 20px;
+				line-height: 22px;
+				color: $color-black;
+				font-weight: 700;
+				font-family: $primary-font-bold;
+				text-align: center;
+			}
+		}
+		.description {
+			text-align: center;
+			font-size: 16px;
+			line-height: 22px;
+			color: $color-black;
+			font-weight: 400;
+			font-family: $primary-font-regular;
+		}
+		.results-perso {
+			li {
+				.profile-name {
+					font-size: 16px;
+					line-height: 22px;
+					font-weight: 400;
+					color: $color-black;
+					font-family: $primary-font-regular;
+				}
+				.profile-pourcentage {
+					font-size: 16px;
+					font-weight: 600;
+					line-height: 22px;
+					color: $orange-color;
+					font-family: $primary-font-semibold;
+				}
+				.progress {
+					height: 3px;
+					overflow: hidden;
+					margin-bottom: 20px;
+					background-color: $dark-gray-color;
+					.progress-bar {
+						float: left;
+						width: 0%;
+						height: 100%;
+						font-size: 12px;
+						line-height: 20px;
+						color: $color-white;
+						text-align: center;
+						background-color: $orange-color;
+					}
+				}
+				&.active {
+					.profile-name {
+						font-weight: 600;
+						color: $orange-color;
+					}
+				}
+			}
+		}
+	}
+}
+.single-test {
+	.article-content  {
+		margin-top: 20px;
+		p {
+			font-size: 18px;
+			line-height: 22px;
+			color: $color-black;
+			font-weight: 400;
+			font-style: italic;
+			font-family: $primary-font-regular;
+		}
+	}
+}
+
+@keyframes shake {
+	10%, 90% {
+		transform: translate3d(-1px, 0, 0);
+	}
+	20%, 80% {
+		transform: translate3d(2px, 0, 0);
+	}
+	30%, 50%, 70% {
+		transform: translate3d(-4px, 0, 0);
+	}
+	40%, 60% {
+		transform: translate3d(4px, 0, 0);
+	}
+}

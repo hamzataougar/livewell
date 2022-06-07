@@ -1,0 +1,128 @@
+@charset "UTF-8";
+@import "compass/css3";
+@import "utils/fonts";
+@import "utils/variables";
+
+
+body, .amp-wp-meta, .amp-wp-header div, .wp-caption-text, .amp-wp-tax-category, .amp-wp-tax-tag, .amp-wp-comments-link, .amp-wp-footer p, .back-to-top {
+	font-family: 'Source Sans Pro', sans-serif;
+	line-height: 25px;
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.amp-wp {
+	// .amp-wp-header
+	&-header {
+	     background-color: $color-white;
+	}
+	//.amp-wp-footer
+	&-footer {
+	    background-color: $footer-background-color;
+	    display: flex;
+
+	}
+	// .amp-wp-title
+	&-title {
+	     font-family: 'Source Sans Pro', sans-serif;
+	     font-size: 32px;
+	     margin-top: 0;
+	     font-weight: 800;
+	     line-height: 1.1;
+	     margin-bottom: 10px;
+	}
+	// .amp-wp-article
+	&-article {
+	  .excerpt p {
+	     padding: 0 10px;
+	     font-weight: 700;
+	     font-size: 20px;
+	  }
+	  // .amp-wp-article-content
+	  &-content {
+	    h2 {
+	       font-size: 30px;
+	       font-weight: 700;
+	    }
+	    p {
+	       font-size: 18px;
+	       font-weight: 400;
+	       line-height: 25px;
+	       color: $color-black;
+	       word-wrap: break-word;
+	       overflow-wrap: break-word;
+	       word-break: break-word;
+	    }
+	    a {
+	       color: $primary-color;
+	       font-weight: 700;
+	       text-decoration: none;
+	    }
+	    ul {
+	       margin-bottom: 10px;
+	    }
+	    .diaporama {
+	       //.diaporama-item-count
+	       &-item-count {
+	        color: $primary-color;
+    		font-weight: 800;
+	       }	    
+	       //.diaporama-item-title
+	       &-item-title {
+	         font-size:16px;
+	         font-weight: 800;
+	       }
+	    }
+	   .lire_aussi_widget {
+	       padding: 15px;
+	       background-color: #f1f1f1;
+	       display: flex;
+	       @include align-items(center);
+	       margin-bottom: 20px;
+	       // .lire_aussi_widget_title
+	       &_title {
+	         color: $primary-color;
+	         text-transform: uppercase;
+	         font-weight: 700;
+	         font-size: 15px; 
+	       }
+	       // .lire_aussi_widget_text 
+	       &_text {
+	          padding: 0px 10px;
+	       }
+	    }
+	    .three-ops-posts {
+	       margin: 10px;
+	       margin-bottom: 20px;
+	       padding-left: 13px;    
+	       border-left: 2px solid $primary-color;
+	       ul {
+	          li {
+	            position: relative;
+	            list-style: none;
+	            &:before {
+	              content: "";
+
+	              width: 5px;
+	              height: 5px;
+	              position: absolute;
+	              left: -15px;
+	              top: 50%;
+	              @include translateY(-50%);
+	              @include border-radius(10px);
+	              background-color: $primary-color;
+	            }
+	          }
+	       }
+	       h3 {
+	         color: $color-black;
+	         font-size: 18px;
+	         font-weight: 700;
+	       }
+	       a {
+	         font-weight: 400;
+	       }
+	    }
+	  }
+	}
+}//\.amp-wp

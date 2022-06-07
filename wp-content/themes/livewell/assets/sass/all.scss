@@ -1,0 +1,15 @@
+//Mobile
+@import "all_mobile";
+
+//Tablet
+@media (min-width: $screen-sm-min) {
+    //@import "desktop/single_desktop";
+}
+
+//Desktop
+@media (min-width: $screen-md-min) {
+    @import "desktop/lire_aussi_widget_desktop";
+}
+
+//Large Screens
+// @media (min-width: $screen-lg-min) {}

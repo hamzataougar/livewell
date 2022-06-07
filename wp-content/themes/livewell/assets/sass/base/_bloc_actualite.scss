@@ -1,0 +1,14 @@
+#homeBody{
+    .items-posts{
+        padding-left: 0;
+        >div{
+            margin-bottom: 20px;
+            .post_caption{
+                margin-top: 5px;
+                .post_date{
+                    margin-top: 4px;
+                }
+            }
+        }
+    }
+}

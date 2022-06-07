@@ -1,5 +1,28 @@
 <?php
 
+<<<<<<< HEAD
+=======
+define('DEFAULT_CACHE_VERSION_CDN' , 1 );
+define('CACHE_VERSION_CDN' , get_cache_version_cdn() );
+
+if(isset($_GET['newcdn'])){
+	add_action('wp', function(){
+		$cdn =	get_cache_version_cdn() ;
+		$cdn ++ ;
+		update_option('cache_version_cdn', $cdn) ;
+	});
+}
+
+
+function get_cache_version_cdn(){
+	
+	$cache_version_cdn = get_option('cache_version_cdn', DEFAULT_CACHE_VERSION_CDN) ;
+	
+	return ($cache_version_cdn >  DEFAULT_CACHE_VERSION_CDN)? $cache_version_cdn : DEFAULT_CACHE_VERSION_CDN ;
+}
+
+
+>>>>>>> 075e3a5... Body Project Commit
 function page_has_video_top(){
 	global $post;
 	$video_top_page = false;
@@ -178,4 +201,71 @@ function hbh_get_category_by_slug($slug){
     }
 
     return $term;
+<<<<<<< HEAD
+=======
+}
+
+function is_wp_home(){
+	global $wp_query ;
+	return is_home() && empty($wp_query->query);
+}
+
+function page_has_gallery(){
+	global $post;
+
+	if ( is_single() && $post ) 
+	{
+		$post_content = $post->post_content ;
+		return stristr($post_content , "[gallery" );
+	}
+	return false ;
+}
+
+function rw_is_mobile(){
+	return defined('MOBILE_MODE') && MOBILE_MODE;
+}
+
+function rw_enqueue_style( $handle, $src = '', $deps = array(), $ver = false, $media = 'all' ) {
+	wp_enqueue_style( $handle, $src,  $deps , $ver, $media)  ;
+}
+
+/**
+ * Afficher le menu de la zone header
+ *
+ * @return void
+ */
+function header_menu() : void {
+    $nav_cls = "nav navbar-nav";
+    if (rw_is_mobile()) $nav_cls .= " scrolable_nav";
+    $html_nav = '';
+    $menu_items = wp_get_nav_menu_items('menu_header');
+    if(is_category()){
+        $cat =get_queried_object();
+    }else if(is_single()){
+        $cat = '';
+    }
+    if (!empty($menu_items)) {
+        $html_nav .= '<nav class="menu-site hidden-xs">';
+        $html_nav .= '<ul id="header-top-menu" class="' . $nav_cls . '">';
+        $html_nav .= apply_filters('nav_menu_logo_sticky','');
+        $html_nav_items = '';
+        $target = '';
+        $cat = isset($cat) ? $cat : '';
+        foreach ($menu_items as $menu_item) {
+            if ($menu_item->menu_item_parent == 0) {
+                $link = $menu_item->url;
+                $target = !empty($menu_item->target) ? 'target="' . $menu_item->target . '"' : '';
+                $link = apply_filters('header_menu_href_link', $link);
+                $cls =apply_filters('header_menu_anker_class','',$menu_item->object_id,$cat,$link); 
+                $html_nav_items .= '<li class="' . (isset($menu_item->classes) ? implode(" ", $menu_item->classes) : "") . ' ' . ' menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-' . $menu_item->ID . '">
+                    <a href="' . $link . '" ' . $target . ' class="'.$cls.'">' . $menu_item->title . '</a>
+                    </li>';
+            }
+        }
+        $html_nav .= apply_filters('header_menu_li_items', $html_nav_items);
+        $html_nav .= '</ul>';
+        $html_nav .= '</nav>';
+    }
+    echo $html_nav;
+>>>>>>> 075e3a5... Body Project Commit
 }

@@ -1,0 +1,71 @@
+.produit-affiliate {
+	position: relative;
+	padding: 1em;
+	margin: 30px 0;
+	.cta a {
+		padding: 10px;
+		font-size: 15px;
+		font-weight: 700;
+		@include border-radius(15px 15px 15px 0px);
+	}
+	.d-flex {
+		display: flex;
+		align-items: center;
+
+		.left {
+			text-align: center;
+			.img-produit {
+				width: auto;
+				max-height: 160px !important;
+			}
+		}
+		.right {
+			.marque,
+			.description {
+				font-size: 16px;
+			}
+			.price {
+				font-weight: bold;
+				font-size: 20px;
+				line-height: 18px;
+				margin-bottom: 15px;
+			}
+		}
+	}
+	.d-flex-marge {
+		margin-top: 20px;
+	}
+}
+
+.produit-affiliate,
+.amazon-affiliate {
+	&.clickable-block {
+		position: relative;
+	}
+}
+
+.clickable-block {
+	.overlay {
+		position: absolute !important;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		z-index: 1;
+	}
+
+	a.overlay:after {
+		background: none !important;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.produit-affiliate {
+		.d-flex {
+			display: block;
+			.right {
+				text-align: center;
+			}
+		}
+	}
+}

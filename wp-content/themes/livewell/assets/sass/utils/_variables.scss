@@ -1,0 +1,41 @@
+@import "../../../../reworldmedia/assets/bootstrap-sass/sass/bootstrap-v3/variables";
+
+//\ Colors
+
+$color-white : #ffffff;
+$color-black : #000000;
+$primary-color : #ff7b4a;
+$gray-color : #9a9a9a;
+$orange-color : #ee7145;
+
+// element variable css
+$post-date-color: #676767;
+$post-info-cat-color : $primary-color;
+$footer-background-color :  #141414;
+$post-large-grey : #bfbfbf;
+$input-page-grey : #fbfbfb;
+$color-black: #000000;
+$bread_crumbs_color: #8c8c8c;
+$lire_aussi_bg_color : #ff7b4a;
+$share_icon_bg_color: #ff7b49;
+$diapo_legend_bg_color: #313131;
+$light-gray-color: #909090;
+$dark-gray-color: #a0a0a0;
+//\ Fonts
+$primary-font-semibold: 'SourceSansPro-SemiBold';
+$primary-font-bold: 'SourceSansPro-Bold';
+$primary-font-regular: 'SourceSansPro-Regular';
+$primary-font-light: 'SourceSansPro-Light';
+$primary-font-black: 'SourceSansPro-Black';
+$primary-font-extralight: 'SourceSansPro-ExtraLight';
+$primary-font-lightitalic: 'SourceSansPro-LightItalic';
+
+
+//\fontawesome
+$fontawesome-solid: 'fontawesome-solid';
+$fontawesome-light: 'fontawesome-light';
+$fontawesome-brands: 'fontawesome-brands'; 
+$fontawesome-duotone: 'fontawesome-duotone'; 
+$fontawesome-regular: 'fontawesome-regular'; 
+
+$alpha: (1: 'A',2: 'B',3: 'C',4: 'D',5: 'E',6: 'F',7: 'G',8: 'H',9: 'I',10: 'J',11: 'K',12: 'L',13: 'M',14: 'N',15: 'O',16: 'P',17: 'Q',18: 'R',19: 'S',21: 'T',22: 'U',23: 'V',24: 'W',25: 'X',26: 'Y',27: 'Z');

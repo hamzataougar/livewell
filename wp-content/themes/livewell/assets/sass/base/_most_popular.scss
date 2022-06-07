@@ -1,0 +1,28 @@
+.most_popular {
+	padding-left: 0;
+	list-style: none;
+	.thumbnail-item {
+		margin: 15px 0px;
+		.info_link {
+			font-size: 11px;
+			display: block;
+			color: $primary-color;
+			font-weight: 700;
+			font-family: $primary-font-bold;
+			text-transform: uppercase;
+		}
+		.title-item-small {
+			font-size: 15px;
+			color: $color-black;
+			font-weight: 600;
+			line-height: 18px;
+			font-family: $primary-font-semibold;
+			margin: 0;
+		}
+		.media-left {
+			img {
+				border-radius: 10px
+			}
+		}
+	}
+}

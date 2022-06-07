@@ -1,0 +1,160 @@
+.post,.items-posts {
+    margin-bottom: 15px;
+    padding-left: 0px;
+    .post_img {
+        position: relative;
+        text-align: center;
+        img {
+            width: 100%;
+            border-radius: 15px;
+            filter: drop-shadow(0 0 10px #bfbfbf);
+            background-color: #e8e8e8;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            @include border-radius(25px);
+            background: rgba(0, 0, 0, 0);
+            background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+            background-clip: content-box, padding-box;
+            padding: 0 15px;
+            transition: background 0.5s ease;
+        }
+        &:hover .overlay {
+            display: block;
+            background-image:linear-gradient(to bottom, rgba(0, 0, 0, .3) 0%, rgba(0, 0, 0, .3) 100%);
+        }
+        .button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            text-align: center;
+            display: inline-block;
+            margin: 0 auto;
+            opacity: 0;
+            transition: opacity .35s ease;
+            transform: translate(-50%, -50%);
+        }
+        .button a {
+            color: $color-white;
+            text-align: center;
+            font-family: $primary-font-bold;
+            text-decoration: none;
+            max-width: 200px;
+            padding: 6px 12px;
+            font-weight: bold;
+            border: solid 2px $color-white;
+            text-transform: uppercase;
+            @include border-radius(8px);
+            z-index: 1;
+        }
+        &:hover .button {
+            opacity: 1;
+        }
+    }
+    .post_cat{
+        display: flex;
+        margin-top: 7px;
+        @include align-items(center);
+    }
+    .info_cat {
+        font-size: 11px;
+        color: $post-info-cat-color;
+        font-weight: 700;
+        font-family: $primary-font-bold;
+        text-transform: uppercase;
+        display: block;
+        margin-right: 5px;
+        text-decoration: none;
+    }
+    .badge{
+        padding: 3px 7px;
+        color: $color-white;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        background-color: $primary-color;
+        @include border-radius(25px);
+
+    }
+    .post_title {
+        a {
+            @include shave(2);
+            font-size: 15px;
+            color: $color-black;
+            font-weight: 600;
+            font-family: $primary-font-semibold;
+            text-decoration: none;
+        }
+    }
+    .post_date {
+        font-size: 9px;
+        color: $post_date_color;
+        font-weight: 400;
+        font-style: italic;
+        font-family: $primary-font-regular;
+    }
+}
+.items-posts {
+    padding-left: 15px;
+}
+.bloc_rubrique {
+    margin-bottom: 20px;
+    .homeMoreArticles_head {
+        display: flex;
+        @include flex-wrap(wrap);
+        @include align-items(baseline);
+        @include justify-content(space-between);
+        .read_more {
+            color: $post-info-cat-color;
+            font-family: $primary-font-regular;
+            text-decoration: none;
+            font-size: 14px;
+            position: relative;
+            padding-right: 30px;
+            &:after {
+                content: " ";
+                position: absolute;
+                width: 20px;
+                height: 1px;
+                display: block;
+                background-color: $post-info-cat-color;
+                bottom: 10px;
+                right: 0px;
+            }
+        }
+        .default-title {
+            font-size: 30px;
+            font-weight: 700;
+            font-family: $primary-font-black;
+            margin-bottom: 20px;
+            text-transform: capitalize;
+            margin-top: 0;
+            a {
+                color: $color-black;
+                text-decoration: none;
+            }
+        }
+    }
+    .row {
+        display: flex;
+        @include flex-wrap(wrap);
+    }
+}
+#posts-rubrique {
+    >.row {
+        display: flex;
+        @include flex-wrap(wrap);
+    }
+    ul{
+        list-style: none;
+        padding: 0px;
+    }
+}
+.items-posts {
+    display: flex;
+    @include flex-wrap(wrap);
+}

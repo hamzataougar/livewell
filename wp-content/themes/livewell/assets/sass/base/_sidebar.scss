@@ -1,0 +1,45 @@
+#blockRight, .sidebar-before-widget-ops {
+	.widget, &.widget{
+		// .widget-title
+		&-title, .default-title {
+			font-size: 30px;
+			color: $color-black;
+			font-weight: 800;
+			font-family: $primary-font-black;
+		}
+
+	}
+	.sociallink-container {
+		margin: 15px 0px;
+		padding: 15px 30px;
+		border-radius: 20px;
+		background-color: $primary-color;
+		.title {
+			font-size: 30px;
+			color: $color-black;
+			font-weight: 800;
+			font-family: $primary-font-black;
+		}
+		.textwidget {
+			font-size: 16px;
+			color: $color-black;
+		}
+	}
+}
+#blockRight {
+	width: 100%;
+	#fix_onscroll {
+		display: block;
+		@include flex-wrap(wrap);
+	}
+}
+@media (min-width: 991px) {
+	#blockRight {
+		width: 320px;
+	}
+}
+@media (min-width: 1200px) {
+	#blockRight {
+		width: 370px;
+	}
+}

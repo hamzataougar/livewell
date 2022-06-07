@@ -1,0 +1,37 @@
+.block_tests-quiz {
+	padding: 30px;
+	border-radius: 15px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-image: url('../../assets/images/tests-quiz-bloc.png');
+	.default-title {
+		.txt_wrapper {
+			color: $color-white !important;
+		}
+	}
+	.read_more {
+		color: $color-white !important;
+		&:after {
+			background-color: $color-white !important;
+		}
+	}
+	.post {
+		// .post_title
+		&_title {
+			a {
+				color: $color-white;
+			}
+		}
+		// .post_date
+		&_date {
+			color: $color-white;
+		}
+		// .post_img
+		&_img {
+			img {
+				filter: none;
+			}
+		}
+	}
+}

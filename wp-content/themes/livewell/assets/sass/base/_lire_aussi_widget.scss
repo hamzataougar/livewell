@@ -1,0 +1,33 @@
+.lire_aussi_widget {
+    background-color: $lire_aussi_bg_color;
+    @include border-radius(10px);
+    padding: 15px;
+    color: $color-white;
+    // .lire_aussi_widget_title
+    &_title {
+        font-size: 20px;
+        font-weight: 700;
+        font-family: $primary-font-bold;
+    }
+    // .lire_aussi_widget_aricle_title
+    &_aricle_title {
+        font-size: 16px;
+        font-family: $primary-font-regular;
+    }
+    img {
+        @include border-radius(10px);
+    }
+    // .lire_aussi_widget_text
+    &_text {
+        padding-right: 30px;
+    }
+    // .lire_aussi_widget_thumb
+    &_thumb {
+        display: block;
+        margin-bottom: 5px;
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+}

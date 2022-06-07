@@ -1,0 +1,31 @@
+.carousel {
+    // .carousel-inner
+    &-inner {
+        .item {
+            .carousel_img {
+                img {
+					
+                }
+            }
+            .carousel-caption {
+                a {
+                    text-decoration: none;
+                }
+                .block_categorie_title {
+                    .info_cat {
+                    }
+                }
+                .info_title {
+                    a {
+                    }
+                }
+                .carousel_excerpt {
+                }
+                .carousel-link {
+                }
+            }
+        }
+        > .item.active {
+        }
+    }
+}

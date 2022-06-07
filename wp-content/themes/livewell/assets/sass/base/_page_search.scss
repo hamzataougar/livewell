@@ -1,0 +1,39 @@
+#results {
+    .bar_result_search {
+        font-size: 30px;
+        font-weight: 800;
+        color: $color-black;
+        font-family: $primary-font-black;
+        text-align: center;
+        margin: 15px auto;
+    }
+    .item {
+        margin-bottom: 20px;
+        .caption {
+            .info_cat {
+                color: #ff7b4a;
+                display: block;
+                margin-top: 7px;
+                font-size: 15px;
+                font-weight: 700;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-family: $primary-font-bold;
+            }
+            h2 {
+                margin: 0px;
+                a {
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: $color-black;
+                    text-decoration: none;
+                    font-family: $primary-font-semibold;
+                }
+            }
+        }
+        img {
+            border-radius: 15px;
+            filter: drop-shadow(0 0 12px #bfbfbf);
+        }
+    }
+}

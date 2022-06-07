@@ -1,0 +1,50 @@
+body.adaptation_habillage_1000px_155809078 {
+    &.skin_size_1000 {
+        #page{
+            max-width: 1000px;
+			background-color: $color-white;
+        }
+        overflow-x: hidden;
+        #container{
+            &>.container{
+                width: initial;
+                padding: 0;
+            }
+            .category_name{
+                width: 100%;
+                max-width: 1000px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        #content{
+            max-width: 670px;
+            padding-right: 0;
+        }
+        &.single{
+            #content{
+                padding-left: 0;
+            }
+        }
+        .main-header{
+            .container{
+                max-width: 991px;
+            }
+        }
+        #blockRight{
+            max-width: 330px;
+            .list-ms-item{
+                max-width: 300px;
+            }
+            aside{
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+        #posts-rubrique{
+            ul.row{
+                padding-left : 0px;
+            }
+        }
+    }
+}

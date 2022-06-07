@@ -1,0 +1,14 @@
+//Mobile
+@import "rubrique_mobile";
+
+//Tablet
+@media (min-width: $screen-sm-min) {
+	//@import "desktop/page_rubrique_tablet";
+}
+
+//Desktop
+@media (min-width: $screen-md-min) {
+	@import "desktop/page_rubrique";
+}
+//Large Screens
+// @media (min-width: $screen-lg-min) {}

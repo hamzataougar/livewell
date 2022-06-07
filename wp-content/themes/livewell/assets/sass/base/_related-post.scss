@@ -1,0 +1,36 @@
+.related-posts {
+    margin-bottom: 50px;
+    margin-top: 20px;
+    .default-title {
+        font-size: 30px;
+        color: $color-black;
+        font-weight: 800;
+        font-family: $primary-font-black;
+    }
+    .post-item {
+        img {
+            @include border-radius(10px);
+        }
+        .info_cat {
+            font-size: 11px;
+            color: #ff7948;
+            font-weight: 700;
+            font-family: $primary-font-bold;
+        }
+        .title_push {
+            margin: 0;
+            a{
+                font-size: 16px;
+                color: $color-black;
+                font-weight: 400;
+                font-family: $primary-font-regular;
+            }
+        }
+        .info_date {
+            font-size: 9px;
+            color: #676767;
+            font-weight: 400;
+            font-family: $primary-font-regular;
+        }
+    }
+}

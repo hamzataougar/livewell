@@ -1,0 +1,58 @@
+.navbar-sociallink {
+    margin: 0;
+	display: block;
+    li {
+        list-style-type: none;
+        padding: 0px;
+        margin: 0px 5px;
+        display: inline-block;
+        a {
+            background-color: $color-white;
+            @include border-radius(10px);
+            display: block;
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            position: relative;
+            padding: 0;
+            text-indent: 200px;
+            text-decoration: none;
+            &.fb:after {
+                content: "\f39e";
+            }
+            &.tw:after {
+                content: "\f099";
+            }
+            &.pint:after {
+                content: "\f231";
+            }
+            &.cam:after {
+                content: "\f16d";
+            }
+            &:after {
+                position: absolute;
+                left: 50%;
+                top: 55%;
+                width: 100%;
+                height: 100%;
+                font-size: 20px;
+                text-indent: 0;
+                text-align: center;
+                color: $primary-color;
+                @include transform(translate(-50%, -40%));
+                font-family: $fontawesome-brands;
+            }
+            &:hover {
+                border-radius: 10px;
+                border: 1px solid $color-white;
+                background-color: $primary-color;
+                &:after {
+                    color: $color-white;
+                }
+            }
+            &:focus{
+                //background-color: transparent;
+            }
+        }
+    }
+}

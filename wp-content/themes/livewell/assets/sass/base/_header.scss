@@ -1,0 +1,118 @@
+header {
+    box-shadow: 0px 5px 5px rgba(209, 209, 209, 0.5);
+    .navbar-site {
+        margin: auto;
+    }
+    .navbar-brand {
+        display: none;
+    }
+    .navbar_elem_wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .toggle_search,
+        .default-toggle {
+            border: none;
+            background-color: #fff;
+            color: #000000;
+            font-size: 30px;
+            span {
+                display: none;
+            }
+        }
+        .default-toggle {
+            &::after {
+                font-family: $fontawesome-solid;
+                content: "\f009";
+            }
+        }
+        .toggle_search {
+            &::after {
+                font-family: $fontawesome-light;
+                content: "\f002";
+            }
+        }
+        .navbar-brand-sm {
+            img {
+                max-width: 120px;
+            }
+        }
+        #header-top-menu {
+            float: initial;
+            .menu-item {
+                display: inline-block;
+                padding: 0 5px;
+                position: relative;
+                &:not(:last-child) {
+                    &::after {
+                        content: "";
+                        border-bottom: solid 2px #ffffff;
+                        width: 5px;
+                        position: absolute;
+                        top: 50%;
+                        right: 0;
+                        @include translate(100%, -50%);
+                    }
+                }
+                a {
+                    padding: 5px;
+                    line-height: 27px;
+                    color: #313131;
+                    font-weight: 700;
+                    font-family: $primary-font-bold;
+                    text-align: center;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+#MainMenu {
+    .close-burger {
+        &:after {
+            content: "\f00d";
+            font-family: $fontawesome-solid;
+        }
+    }
+    #principal-menu {
+        margin-top: 15px;
+        .menu-item {
+            a {
+                color: $color-black;
+                font-weight: 700;
+                font-family: $primary-font-bold;
+                font-size: 14px;
+            }
+        }
+    }
+}
+#searchmodal {
+    .close-search {
+        margin-bottom: 5px;
+        &:after {
+            content: "\f00d";
+            font-family: $fontawesome-solid;
+        }
+    }
+    .form-group {
+        position: relative;
+        input {
+            padding-right: 30px;
+            &:focus {
+                border-color: $primary-color;
+                box-shadow: inset 0 1px 1px #00000014, 0 0 8px #ff7b4a99;
+            }
+        }
+    }
+    .btnSubmitSearch {
+        background-color: transparent;
+        border: none;
+        position: absolute;
+        right: 5px;
+        top: 10px;
+        &:after {
+            font-family: $fontawesome-solid;
+            content: "\f002";
+        }
+    }
+}

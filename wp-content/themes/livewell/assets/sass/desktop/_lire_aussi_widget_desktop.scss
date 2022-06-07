@@ -1,0 +1,11 @@
+#content {
+	.lire_aussi_widget {
+		// .lire_aussi_widget_thumb
+		&_thumb {
+			display: table-cell;
+	        img {
+	            max-width: inherit;
+	        }
+		}
+	}
+}

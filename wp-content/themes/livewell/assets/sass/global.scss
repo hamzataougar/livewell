@@ -1,0 +1,17 @@
+// Mobile
+@import "global_mobile";
+
+//tablet
+@media (min-width: $screen-sm-min) {
+    @import "desktop/header_tablet";
+}
+//desktop
+@media (min-width: $screen-md-min) {
+    @import "desktop/post-item_desktop";
+    @import "desktop/habillage";
+}
+
+//Large Screens & Up
+@media (min-width: $screen-lg-min) {
+    //@import "desktop/general_large";
+}

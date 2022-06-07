@@ -1,0 +1,111 @@
+footer {
+    display : block;
+    overflow : hidden;
+    background-color: $footer-background-color;
+    padding: 15px 0;
+    .container {
+        width: 100%;
+    }
+    .footer_logo {
+        padding: 15px 0;
+        img {
+            margin: auto;
+            max-width: 120px;
+        }
+    }
+    .menu-footer_menu_1-container,
+    .menu-footer_menu_2-container {
+        .footer-links {
+            margin: 0;
+            list-style: none;
+            padding: 0;
+        }
+        .menu-item {
+            display: inline-block;
+            padding: 0 5px;
+            position: relative;
+            &:not(:last-child) {
+                &::after {
+                    content: "";
+                    border-bottom: solid 2px #ffffff;
+                    width: 5px;
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    @include translate(100%, -50%);
+                }
+            }
+            a {
+                font-size: 14px;
+                color: #ffffff;
+                font-weight: 300;
+                font-family: $primary-font-light;
+                text-align: center;
+                padding: 10px 0;
+                text-decoration: none;
+            }
+        }
+    }
+    .menu-footer_menu_1-container {
+        margin-top: 15px;
+    }
+    .menu-footer_menu_2-container {
+        .menu-item {
+            a {
+                line-height: 36px;
+                font-weight: bold;
+                text-transform: uppercase;
+                font-family: $primary-font-bold;
+            }
+        }
+    }
+    .sociallink-container {
+        display: flex;
+        @include justify-content(center);
+        @include align-items(center);
+        li {
+            a {
+                font-family: $fontawesome-brands;
+                font-size: 24px;
+                color: $primary-color;
+                background-color: #1d1d1d;
+                border-radius: 15px;
+                width: 46px;
+                height: 46px;
+                position: relative;
+                &:not(:last-child) {
+                    margin-right: 10px;
+                }
+                &:after {
+                    font-size: 24px;
+                }
+            }
+            .fab {
+                font-style: normal;
+                top: 50%;
+                left: 50%;
+                position: absolute;
+                @include translate(-50%,-50%)
+            }
+            .fa {
+                &-twitter::after {
+                    content: "\f099";
+                }
+                &-facebook::after {
+                    content: "\f39e";
+                }
+                &-pinterest::after {
+                    content: "\f231";
+                }
+                &-instagram::after{
+                    content: "\f16d";
+                }
+            }
+        }
+    }
+    .widget_nav_menu {
+        .menu {
+            padding: 0px;
+        }
+    }
+}

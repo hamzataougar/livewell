@@ -1,0 +1,37 @@
+.widget-newsletter {
+	@include border-radius(20px);
+	filter: drop-shadow(0 0 10px #bfbfbf);
+	background-color: $color-white;
+	margin: 15px 0;
+	padding: 15px 30px;
+	.widget-title {
+		font-size: 35px;
+		color: $color-white;
+		text-transform: uppercase;
+		font-family: $primary-font-black;
+		font-weight: 800;
+		text-transform: none;
+	}
+	.textwidget {
+		font-size: 16px;
+		color: $color-black;
+		font-family: $primary-font-regular;
+		.ninja-forms-cont {
+			padding: 20px 0 0;
+		}
+		.ninja-forms-form {
+			position: relative;
+		}
+		.newsletter_submit-wrap {
+			position: absolute;
+			top: 0;
+			right: 0;
+			.btn {
+				@include border-radius(10px);
+				background-color: $primary-color;
+				border: 2px solid $primary-color;
+				padding: 6px 8px;
+			}
+		}
+	}
+}

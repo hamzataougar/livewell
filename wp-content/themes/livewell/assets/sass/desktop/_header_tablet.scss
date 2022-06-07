@@ -1,0 +1,28 @@
+header {
+    .navbar-brand {
+        display: block;
+        float: initial;
+        height: auto;
+        a {
+            margin: auto;
+            display: block;
+            max-width: 180px;
+        }
+    }
+    .navbar_elem_wrapper {
+        padding: 15px 0;
+        display: block;
+        .toggle_search,
+        .default-toggle {
+            display: none;
+        }
+        .navbar-brand-sm {
+            display: none;
+        }
+    }
+    #header-top-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

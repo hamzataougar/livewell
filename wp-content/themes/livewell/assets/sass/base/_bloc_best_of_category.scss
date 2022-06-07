@@ -1,0 +1,46 @@
+.best-of-rubrique {
+    background-color: #f4f4f4;
+    @include border-radius(10px);
+    font-family: $primary-font-bold;
+    margin-bottom: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    .cat_name{
+        font-size: 30px;
+        color: $color-black;
+        font-weight: 800;
+    }
+    .tag-posts{
+        .tag-title {
+            font-family: $primary-font-semibold;
+            font-size: 20px;
+            color: $post-info-cat-color;
+            text-transform: capitalize;
+            padding-left: 15px;
+            display: block;
+            text-decoration: none;
+            margin-bottom: 0;
+            line-height: 20px;
+            font-weight: bold;
+            a{
+                color:$primary-color ;
+                text-decoration: none;
+            }
+        }
+        .post_img{
+            padding: 10px;
+            img{
+                @include border-radius(10px);
+                margin-bottom: 10px;
+            }
+            a {
+                font-size: 16px;
+                color: $color-black;
+                font-weight: 600;
+                text-decoration: none;
+                font-family: $primary-font-regular;
+            }
+        }
+    }
+    
+}
