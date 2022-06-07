@@ -1,7 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-=======
 define('DEFAULT_CACHE_VERSION_CDN' , 1 );
 define('CACHE_VERSION_CDN' , get_cache_version_cdn() );
 
@@ -22,7 +20,6 @@ function get_cache_version_cdn(){
 }
 
 
->>>>>>> 075e3a5... Body Project Commit
 function page_has_video_top(){
 	global $post;
 	$video_top_page = false;
