@@ -2,6 +2,13 @@
 
 define('DEFAULT_CACHE_VERSION_CDN' , 1 );
 define('CACHE_VERSION_CDN' , get_cache_version_cdn() );
+define ('BREADCRUMB_MICRO_DONNEES_HTML', false) ;
+define('REWORLDMEDIA_TERMS' , 'hbh');
+
+ $menu_cat_post = array();
+ $post_category_from_url = array();
+
+
 
 if(isset($_GET['newcdn'])){
 	add_action('wp', function(){
@@ -262,4 +269,301 @@ function header_menu() : void {
         $html_nav .= '</nav>';
     }
     echo $html_nav;
+}
+
+function reworldmedia_pagination($max_page=0) { 
+	global $wp_query ;
+	if ($max_page==0) {
+		$max_page = $wp_query->max_num_pages;
+	} 	
+	$big = 999999999;
+	if(!defined('NEWRW')){ 
+		$paginate_args = array(
+			'base'         => str_replace($big, '%#%', get_pagenum_link($big)),
+			'format'       => '?paged=%#%',
+			'current' 	   => max( 1, get_query_var('paged')),
+			'show_all'     => false,
+			'end_size'     => 4,
+			'mid_size'     => 4,
+			'prev_next'    => true ,
+			 'prev_text'    => __('Précédent' , REWORLDMEDIA_TERMS ),
+			 'next_text'    => __('Suivant' , REWORLDMEDIA_TERMS),
+			 'total'        => $max_page
+		);
+
+		$paginate_links = paginate_links($paginate_args) ;
+		if(is_category()){
+			$current_cat = get_term($wp_query->query_vars['cat'], 'category');
+			$is_parent_cat = $current_cat->parent==0;
+			if($is_parent_cat){
+				$paginate_links = str_replace( array('/<a /', '/<\/a>/', '/href=/') , array('<span ','</span>', 'data-href='), $paginate_links) ;
+			}
+		}
+		return '<div class="pagination">'.$paginate_links.'</div>';
+	}else{ 
+		$paginate_args = array(
+			'base'         => str_replace($big, '%#%', get_pagenum_link($big)),
+			'format'       => '?paged=%#%',
+			'current' 	   => max( 1, get_query_var('paged')),
+			'show_all'     => false,
+			'end_size'     => 2,
+			'mid_size'     => 2,
+			'prev_next'    => apply_filters('remove_next_previous',true) ,
+			 'prev_text'    => __('Précédent' , REWORLDMEDIA_TERMS ),
+			 'next_text'    => __('Suivant' , REWORLDMEDIA_TERMS),
+			 'total'        => $max_page,
+			 'type'		   => 'array'
+		);
+
+
+		$paginate_links = paginate_links($paginate_args) ;
+
+		$r = '';
+		if ( $paginate_links ){
+			if(defined('V3')){
+				foreach ($paginate_links as $link) {
+					$is_active = strpos($link, 'page-numbers current') !== false ;
+					$r .= '<li class="'. ($is_active?'active':'') .'">'.  $link .'</li>'; 
+				}
+			}else{
+				$j = 0;
+
+					$links_count = count($paginate_links);
+					$dots_post = array();
+					$pagination_vals = array();
+					$active_page_pos = 0;
+
+					foreach ($paginate_links as $link){
+						++$j;
+						if( strpos($link, 'page-numbers current') ){
+							$active_page_val = strip_tags($link);
+							$active_page_pos = $j;
+						}
+						$pagination_vals[] = strip_tags($link);
+					}
+					// pagination first item position
+					if( $active_page_val < 10 ){
+						$page_first_pos = 0;
+					}else{
+						$page_first_pos = 1;
+					}
+					// pagination last item position
+					if( $active_page_pos == $links_count ){
+						$page_last_pos = $links_count-1;
+					}else{
+						$page_last_pos = $links_count-2;
+					}
+					// pagination first dots position
+					if( ($pagination_vals[$page_first_pos]+1) != $pagination_vals[$page_first_pos+1] ){
+						$dots_post[] = 2;
+					}
+					// pagination last dots position
+					if( ($pagination_vals[$page_last_pos]-1) != $pagination_vals[$page_last_pos-1] ){
+						$dots_post[] = $links_count-2;
+					}
+					$j = 0;
+
+
+				foreach ($paginate_links as $link) {
+					$j++;
+	
+					$is_active = strpos($link, 'page-numbers current') !== false ;
+					$is_prev = strpos($link, 'prev page-numbers') !== false ;
+					$is_next = strpos($link, 'next page-numbers') !== false ;
+					if(strpos($link, '<a') === false ){
+						$link = '<a href="#">'.$link .'</a>' ;
+					}
+					$r .= apply_filters('rw_paginate_links','',$paginate_links,$j);
+					$r .= '<li class="page-numbers '. ($is_active?'active':'') . ($is_prev?'prev-page':'') . ($is_next?'next-page':'') .'">'.  strip_tags($link, '<a>') .'</li>'; 
+					
+				}
+			}
+		}
+		$paged = get_query_var('paged')?get_query_var('paged'):1;
+		$r=apply_filters('show_last_and_first_pagination',$r,$paged,$max_page);
+		if( !empty($r) ){
+		$r = '<ul class="pagination">'.$r.'</ul>';
+		}
+		if($wp_query->max_num_pages){
+			$r .= apply_filters('current_pagination_nb', '<span class="number_page">'.  __('Page' , REWORLDMEDIA_TERMS)  .' <span class="active_page">'. $paged .'</span> '. __('sur' , REWORLDMEDIA_TERMS) .' '. $wp_query->max_num_pages.' </span>', $paged, $wp_query->max_num_pages);
+		}
+		if ( apply_filters('pagination_js',false))  {
+			$r = str_replace( array('<a ', '</a>', 'href=') , array('<span ','</span>', 'data-href='), $r) ;
+		}
+		$r=apply_filters('reworldmedia_pagination',$r,$paged,$max_page);
+		
+		return $r;
+	}
+}
+
+function get_menu_cat_link($post, $class='', $first_level=false, $parent_id=false, $href_js=false, $simple_cat=false, $attr=array(),$exclude_cat='') {
+	$link = '';
+	$category = get_menu_cat_post($post, $class, $first_level, $parent_id, $href_js, $simple_cat, $attr,$exclude_cat);
+	if(is_object($category))
+		$link = gen_link_cat($category, $class, $category->parent, $href_js, $attr);
+
+	return $link;
+}
+
+function get_menu_cat_post($p='', $class='', $first_level=false, $parent_id=false, $href_js=false, $simple_cat=false, $attr=array(),$exclude_cat='') {
+
+	global $post ;
+	$p = ($p)? $p:$post ;
+	if(!is_object($p)){
+		$p = get_post($p);
+	} 
+	$id = (!empty($p->ID)) ? $p->ID : 0;
+	if(isset($menu_cat_post[$id . $first_level])){
+		return $menu_cat_post[$id . $first_level] ;
+	}
+
+	$category  = null ;
+
+
+	$cat =  get_post_meta($id,'_category_permalink',true) ;
+	if($cat){
+		$category = get_category($cat) ;	
+	}
+
+	if(!$category){
+
+		// TODO : get rid of this get_post_category_from_url
+		if( apply_filters( 'disable_category_from_url' , !$simple_cat , $p) ) {
+			$category = get_post_category_from_url($p, $first_level);
+		} 
+
+		if(!$category){
+			$category = get_the_category();
+			if($exclude_cat!='') {
+				foreach ($category as $categor) {
+					if($categor->slug!=$exclude_cat) {
+						$category = $categor;
+						break;
+					}
+				}
+			}else {
+				$category=isset($category[0]) ? $category[0] : '';
+			}
+		}
+	}
+	$menu_cat_post[$id . $first_level]  = $category;
+	return $category;
+}
+
+function gen_link_cat($cat, $class='', $parent_id = 0, $href_js=null, $attr=array()) {
+		
+	if(!is_object($cat)){
+		$cat = get_category($cat) ;
+	}
+
+	$style = 'info_cat '.$class;
+	$attr_str = "";
+	if(count($attr)>0){
+		foreach ($attr as $k => $v){
+			$attr_str .= $k ."=\"$v\" ";
+		}
+	}
+	$cat_name = $cat->name;
+	$cat_link = get_category_link($cat);
+	
+	if ($parent_id!=0) {
+		$style .= ' '.get_cat_slug($parent_id);
+	}
+	$style = apply_filters('classes_gen_link_cat', $style, $cat->term_id, $parent_id);
+
+	if($href_js){
+		$link  = '<span '.$attr_str.' class="'.$style.'" data-href="'.$cat_link.'">';		
+		$link .= $cat_name;
+		$link .= '</span>';
+	}else{
+		$link  = '<a '.$attr_str.' class="'.$style.'" href="'.$cat_link.'">';
+		$link .= $cat_name;
+		$link .= '</a>';			
+	}
+
+	return $link;
+}
+
+function get_post_category_from_url($p=null, $first_level=false) {
+
+	global $post ;
+	$post_id = $p!=null?$p->ID: $post->ID;
+	$post_ = $p !=null ? $p : $post;
+
+	if(isset($post_category_from_url[$post_id . $first_level])){
+		return $post_category_from_url[$post_id . $first_level] ;
+	}
+
+	if(in_array($post_->post_status, array( 'draft', 'pending', 'auto-draft', 'future' ))){
+		$link_current_page = get_not_publish_permalink($post_id);
+	}else{
+		$link_current_page = get_permalink($post_);
+	}
+	
+	$link_current_page = str_replace(home_url('/'), '', $link_current_page);
+	$link_current_page = trim($link_current_page, '/');
+	$link_current_page = explode('/', $link_current_page);
+
+	if (!$first_level) {
+		$cat_part = (count($link_current_page) >= 2 && isset($link_current_page[count($link_current_page)-2]) ) ? $link_current_page[count($link_current_page)-2] : false;
+	} else {
+		$cat_part = array_shift($link_current_page);
+	}	
+	$cat_object = rw_get_category_by_slug($cat_part);
+	$post_category_from_url[$post_id . $first_level] = $cat_object ;
+	return $cat_object;
+}
+
+function rw_get_category_by_slug($slug){
+	global $cache_categories;
+	if(!isset($_GET['debug_cache'])):
+		if ( defined('TIMEOUT_CACHE_TERMS') && TIMEOUT_CACHE_TERMS > 0 ){
+			$time = time() ;
+			// get from cache
+			if ( empty($cache_categories) ) 
+				$cache_categories = wp_cache_get( 'all' , 'categories_by_slug' ) ;
+	     		
+	 		if ( isset($cache_categories[$slug]) &&  ( $time - $cache_categories[$slug][1] ) < TIMEOUT_CACHE_TERMS )
+	 			return $cache_categories[$slug][0];	
+		}
+	endif;
+	$term = get_category_by_slug($slug);
+	
+	if( defined('TIMEOUT_CACHE_TERMS') &&  TIMEOUT_CACHE_TERMS > 0 ) {
+		// don't cache not existing categories
+		if( $term ){
+			$cache_categories[$slug]= array ( $term , $time );
+			wp_cache_set( 'all' , $cache_categories , 'categories_by_slug' , TIMEOUT_CACHE_TERMS );
+		}
+    }
+
+    return $term;
+}
+
+function add_value_to_array($value, $array){
+	if(!is_array($array)) 
+		$array = array();
+	if($value && !in_array($value, $array)){
+		$array[] = $value;
+	}
+	return $array;
+}
+function purge_objetc_cache_url( $url){
+	$url_to_purge = add_query_arg(['disable_cache' => '1', 'delete_cache' => rand()] , $url ) ;
+	wp_remote_get($url_to_purge, array(
+		  'user-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+	));
+	wp_remote_get($url_to_purge, array(
+		  'user-agent' => 'Mozilla/5.0 (Linux; Android 6.0.1; Moto G (4)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Mobile Safari/537.36'
+	));
+}
+
+function get_cat_slug($cat_id) {
+	$cat_id = (int) $cat_id;
+	$category = get_category($cat_id);
+	if (isset($category->slug)) {
+		return $category->slug;
+	} else {
+		return "";
+	}	
 }
