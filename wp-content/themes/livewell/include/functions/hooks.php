@@ -89,3 +89,30 @@ function include_block_push(array $menu_items, array $bloc, int $index_block): v
 {
 	include(locate_template('include/templates/category-item.php'));
 }
+
+
+add_action( 'after_setup_theme', 'reworldmedia_setup' );
+function reworldmedia_setup() {	
+	add_theme_support('automatic-feed-links');
+	register_nav_menu('primary', __('Primary Menu', 'reworldmedia'));
+	add_theme_support('post-thumbnails');
+	add_theme_support( 'menus' );
+	add_theme_support( 'widgets' );
+}
+add_filter('use_block_editor_for_post', '__return_false');
+add_filter( 'gutenberg_use_widgets_block_editor', '__return_false', 100 );
+add_filter( 'use_widgets_block_editor', '__return_false' );
+
+function register_widgets_init() {
+	register_sidebar(array(
+		'name' => __( 'Main Sidebar', 'reworldmedia' ),
+		'id' => 'sidebar-1',
+		'description' => __( 'Main Sidebar', 'reworldmedia' ),
+		'before_widget' => '<div class="sidebar-1_widget">',
+		'after_widget' => '</div>',
+		'before_title' => '',
+		'after_title' => '',
+		));	
+	
+}
+add_action( 'widgets_init', 'register_widgets_init' );
