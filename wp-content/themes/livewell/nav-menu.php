@@ -4,7 +4,7 @@
 		<?php
 		$home_url = esc_url(apply_filters('logo_home_url', home_url('/')));
 		$alt_logo_header = apply_filters('alt_logo_header', get_bloginfo('name'));
-		$img_logo = apply_filters('default_logo_site', STYLESHEET_DIR_URI . '/assets/images-v3/logo_header.svg');
+		$img_logo = apply_filters('default_logo_site', STYLESHEET_DIR_URI . '/assets/images/logo_header.png');
 		if (!rw_is_mobile()) :
 			do_action('before_nav_menu');
 			if (apply_filters('show_logo_site', true)) :
