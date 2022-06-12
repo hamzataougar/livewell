@@ -844,3 +844,13 @@ function split_title($text , $post_id) {
 		}
 	} 
 }
+
+function get_url_by_social_media($social_media){
+	$social_media_urls  = [
+		'facebook_url' => "#",
+		'instagram_url' => "#",
+		'pinterest_url' => "#",
+		'twitter_url' => "#",
+	];
+	return !empty($social_media_urls[$social_media]) ? $social_media_urls[$social_media] : "";
+}
