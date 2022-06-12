@@ -567,3 +567,280 @@ function get_cat_slug($cat_id) {
 		return "";
 	}	
 }
+
+ function last_posts_by_category($parent_id=0 , $count = 3) {
+
+	global $posts_exclude;	
+	
+	$last_posts = array();
+	$menu_id = apply_filters('get_menu_name', 'menu_header', 'menu_header');
+	$parent_id = apply_filters('menu_parent_id', $parent_id) ;
+	$nbr_element = apply_filters('home_nbr_bloc_category', -1) ;
+	// Setup cache menu
+
+	$group_last_post = apply_filters('group_last_posts' , 'last_posts' );
+		 
+	$menu_id = apply_filters( 'menu_custom_id', $menu_id );
+	$menu_items = wp_get_nav_menu_items( $menu_id );
+	  $menu_items = apply_filters( 'last_posts_filter_cats_to_display', $menu_items, $parent_id );
+	$exclude_cats_ids = apply_filters( 'exclude_cats_last_post', array() );
+	$index = 0;
+	if ( $menu_items){
+			
+		foreach ($menu_items as $menu_item) {
+			$count_by_menu_item = $count ;
+			/*
+				Filter pour afficher que les modeles dans les pages marque 
+				ticket : #4151
+			*/
+
+			$show = apply_filters('last_posts_filter_menus_to_display',true,$menu_item);
+			$displayed_cats = array();
+			/*
+				End : #4151
+			*/
+			if( !in_array( $menu_item->object_id, $exclude_cats_ids ) && $show ){
+				if($index == $nbr_element) break;
+				if ($menu_item->type=='taxonomy' && ( $menu_item->post_parent==$parent_id || apply_filters('always_display_submenu', false, $menu_id , $menu_item ) ) 
+					&& !in_array($menu_item->title, $displayed_cats) ) {
+					/*save displayed cats*/
+					$displayed_cats[] = $menu_item->object_id;
+					$bloc = array();
+					$bloc["title"] = $menu_item->title;
+					$category_parent = get_category($menu_item->object_id);
+					$bloc["url"] = get_category_link($category_parent);
+					$bloc["category"] = $menu_item->object_id;
+					$bloc["category_object"] = $category_parent;
+					$tag_name="";
+					
+
+					if( empty($bloc["post_push"])){
+							$count_by_menu_item ++;
+					}
+					$count_by_menu_item = apply_filters('last_posts_by_category_count', $count_by_menu_item, $menu_item->object_id, $index);
+					$posts_exclude=apply_filters('filtre_post_exculde',$posts_exclude);
+					$args = array(
+						'showposts' => $count_by_menu_item, 
+						'category' =>$menu_item->object_id, 
+						'post__not_in' => $posts_exclude,
+					
+						'post_type' => apply_filters('post_type_filter', array('post'), '', 'home_last_posts_by_cats'),
+					);
+					
+					
+					$args = apply_filters( 'last_posts_by_category_args' , $args, $bloc );
+					$args = apply_filters( 'last_post_args_by_menu' , $args, $menu_item, $bloc );
+
+					$args = apply_filters( 'last_posts_args_filter' , $args );
+					
+					// ajouter le verrouillage #7986
+					$bloc["posts"] = get_posts( $args);
+					foreach ($bloc["posts"] as $key => $post) {
+						$posts_exclude = add_value_to_array($post->ID, $posts_exclude);
+					}
+					$condition = empty($bloc["post_push"]) && count($bloc["posts"]);
+					if( apply_filters('block_post_push',$condition ,$bloc['category'] , $index) ) {
+						$bloc["post_push"] =  array_splice($bloc["posts"], 0,1)[0];
+					}
+					$bloc = apply_filters('last_posts_data', $bloc, $posts_exclude) ;
+					array_push($last_posts, $bloc);
+					$index++;
+				}
+			}
+		}
+	} 
+	return $last_posts;
+}
+
+ function show_title_home_h2($title, $url='' , $more_title=''){ 
+	$title_content="";
+	if( $url ){
+		if (is_home()) {
+			$title_content.='<span data-href="'.$url.'" class="txt_wrapper">'.$title.'</span>';
+		}else{
+			$title_content.='<a href="'.$url.'" class="txt_wrapper">'.$title.'</a>';
+		}
+	} else {
+		$title_content.= $title;
+	}
+	if ( $more_title ){
+		$title_content .= '<a class="more_cat" href="'.$url.'" >'.$more_title.'</a>';
+	}
+	$html = '<h2 class="default-title">'.$title_content.'</h2>';
+	echo apply_filters('the_show_title_home_h2',$html, $title, $url , $more_title, $js_link);
+}
+
+function mini_excerpt_for_lines($max , $nLigne, $fin= "...") { 
+	if( has_excerpt() ){
+		$text =  get_the_excerpt() ;
+		return mini_text_for_lines($text, $max , $nLigne, $fin) ;
+	} else {
+		return '';
+	}
+}
+
+function get_origin_cat($post_id,$exclude_cat){
+	global $exclude_categories;	
+	$cat_slug = "";
+	$exclude_categories []= 'mise-en-avant';
+	$exclude_categories []= 'diaporama-accueil';
+	
+	$category = get_the_category($post_id);
+	if($exclude_cat!='') {
+		foreach ($category as $categor) {
+			if($categor->slug!=$exclude_cat && !in_array($categor->slug, $exclude_categories)) {
+				$category = $categor;
+				break;
+			}
+		}
+	}else {
+		foreach ($category as $cat) {
+			if(!in_array($cat->slug, $exclude_categories)) {
+				$category = $cat;
+				break;
+			}
+		}
+	}
+	$cat_slug = get_top_parent_category($category);
+	return $cat_slug;
+}
+
+function get_top_parent_category($category){
+	if(!isset($category->term_id))
+		return '';
+
+	if($category->parent != 0){
+		$cat_tree = get_category_parents($category->term_id, FALSE, ':', TRUE);
+		$cat_tree = apply_filters('category_parents_tree', $cat_tree) ;
+		$top_cat = explode(':',$cat_tree);
+		$slug = $top_cat[0];
+	}else{
+		$slug = $category->slug;
+	}
+	
+	return $slug ;
+}
+
+function get_category_parents_slugs( $category_id ){
+
+	$category_parents_array = array();
+	$category_parents 		= get_category_parents($category_id, FALSE, ':', TRUE);
+
+	if(is_string($category_parents)){
+		// Apply filter to ignore RELATED_MAIN_SECTION categories : le-journal-de-la-maison ... 
+		$category_parents 		= apply_filters('category_parents_tree', $category_parents);
+		$category_parents_array = explode(':',$category_parents);
+		array_pop( $category_parents_array );
+
+	}
+	return $category_parents_array;
+}
+
+function split_title_v2( $text, $post_id ) {
+	$text = trim($text);
+	$text = str_replace('&nbsp;&raquo;', '"', $text);
+	$text = str_replace('&laquo;&nbsp;', '"', $text);
+	$text = html_entity_decode($text, ENT_QUOTES, "utf-8");
+	$title_highlight = get_post_meta($post_id , 'title_highlight' , true);
+	if($title_highlight){
+		$title_highlight = str_replace('&nbsp;&raquo;', '"', $title_highlight);
+		$title_highlight = str_replace('&laquo;&nbsp;', '"', $title_highlight);
+		$title_highlight = html_entity_decode($title_highlight, ENT_QUOTES, "utf-8");
+	}
+		if ( $title_highlight && strpos( $text, $title_highlight ) !== false){
+			$text = mini_text_for_lines($text, 36, 3);
+			// be sure that the highlighted is included
+			if(strpos( $text, $title_highlight ) !== false){
+				return '<strong>'.str_replace($title_highlight , '</strong><em>'.$title_highlight , $text ).'</em>';
+			}
+		}
+
+	if($title_highlight){
+		$text =  $title_highlight ;
+	}
+
+	if(strlen($text) >=36){
+		$strong = mini_text($text, 32, '');
+		$em = substr($text, strlen($strong));
+		$em = mini_text_for_lines($em, 36,2);
+		return "<strong>".$strong . "</strong><em>" . $em."</em>";
+	}else{
+		$words = explode(' ', $text );
+		$count = count($words);
+		$half = 1 + (int)$count/2 ;
+		if (isset($words[$half]) && strlen($words[$half])==1)
+			$half+=1;
+		array_splice($words, $half , 0, "</strong><em>");
+		return "<strong>".implode( ' ' , $words )."</em>";
+	}
+}
+
+
+function mini_text_for_lines($text, $max , $nLigne=1, $fin= "...") {
+	$text = str_replace('&nbsp;&raquo;', '"', $text);
+	$text = str_replace('&laquo;&nbsp;', '"', $text);
+	$text = html_entity_decode($text, ENT_QUOTES, "utf-8");
+	$text = strip_tags($text);
+	$text = trim($text);
+	$return ="";
+	$pointer=0;
+	for($i=0;$i<$nLigne;$i++) {
+		$return1 = mini_text(substr($text,$pointer), $max, "");
+		if ($i +1 == $nLigne && strlen($return1 .$fin ) > $max) {
+			 $return1 = substr($return1, 0, strrpos($return1, " "));  
+		}	
+		$return .=  $return1 ;
+		$pointer = strlen( trim ($return) );
+		if ($pointer  == strlen($text )) {
+			return $return  ;
+		}	
+	}
+	return $return . $fin ;
+}
+
+function mini_text($text, $max ,$fin= " ...") { 
+	$text = trim($text);
+	$text = str_replace('&nbsp;&raquo;', '"', $text);
+	$text = str_replace('&laquo;&nbsp;', '"', $text);
+	$text = html_entity_decode($text, ENT_QUOTES, "utf-8");
+	$text = trim($text);
+	$return = "" ;
+	if ($text != "") {
+		$words = explode(" ", $text );
+		foreach($words as $word) {
+			if ( strlen($return . " " . $word) >$max ) {							
+				return $return . $fin ;
+			}	
+			$return .= " " . $word ;
+		}
+	}
+	return $return  ;
+}
+
+function split_title($text , $post_id) {
+	$text = trim($text);
+	$text = str_replace('&nbsp;&raquo;', '"', $text);
+	$text = str_replace('&laquo;&nbsp;', '"', $text);
+	$text = html_entity_decode($text, ENT_QUOTES, "utf-8");
+	$title_highlight = get_post_meta($post_id , 'title_highlight' , true);
+	if ( $title_highlight && strpos( $text, $title_highlight  )!==false){
+		// be sure that the highlighted is included		
+		$text = mini_text_for_lines($text, 36, 3);
+		return '<strong>'.str_replace($title_highlight , '</strong><em>'.$title_highlight , $text ).'</em>';
+	} else{
+		if(strlen($text) >=36){
+			$strong = mini_text($text, 32, '');
+			$em = substr($text, strlen($strong));
+			$em = mini_text_for_lines($em, 36,2);
+			return "<strong>".$strong . "</strong><em>" . $em."</em>";
+		}else{
+			$words = explode(' ', $text );
+			$count = count($words);
+			$half = 1 + (int)$count/2 ;
+			if (isset($words[$half]) && strlen($words[$half])==1)
+				$half+=1;
+			array_splice($words, $half , 0, "</strong><em>");
+			return "<strong>".implode( ' ' , $words )."</em>";
+		}
+	} 
+}

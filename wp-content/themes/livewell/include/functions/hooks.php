@@ -46,3 +46,46 @@ function wpi_stylesheet_uri($stylesheet_uri, $stylesheet_dir_uri)
 }
 
 add_filter('stylesheet_uri','wpi_stylesheet_uri',10,2);
+
+add_action('after_homeMoreArticles_title','add_cat_more_article',1);
+add_action('after_homeMoreArticles_title','add_cat_introduction',1);
+
+
+/**
+ * action : after_homeMoreArticles_title
+ * 
+ * ajouter le titre voir plus.
+ * 
+ * @param  array  $bloc
+ * 
+ * @return void
+ */
+function add_cat_more_article($bloc){
+    if(isset($bloc['url']) && isset($bloc['title'])){
+        echo '<a href="javascript:void(0);" data-href="'.$bloc['url'].'" title="'.$bloc['title'].'" class="read_more">Voir plus d\'articles</a>';
+    }
+}
+
+/**
+ * action : after_homeMoreArticles_title
+ * 
+ * ajouter un introduction pour la categorie.
+ * 
+ * @param  array  $bloc
+ * 
+ * @return void
+ */
+function add_cat_introduction(array $bloc) : void{
+    $desc_cat = category_description($bloc['category']);
+    if(!empty($desc_cat) ){
+        echo '<div class="introduction"><p>'.$desc_cat.'</p></div>';
+    }
+   
+}
+
+add_action('custom_block_push','include_block_push',10,3);
+
+function include_block_push(array $menu_items, array $bloc, int $index_block): void
+{
+	include(locate_template('include/templates/category-item.php'));
+}
